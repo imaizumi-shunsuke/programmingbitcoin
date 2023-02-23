@@ -1,3 +1,22 @@
+Jimmy Song 著 『プログラミング・ビットコイン（オライリー・ジャパン刊）』の自習メモとしてのリポジトリです。
+
+実行環境をDockerにしたため、オリジナルと異なり以下の手順で実行します。
+
+`docker-compose up -d`
+
+コンテナ内で
+
+`jupyter notebook --port=8888 --ip=0.0.0.0 --allow-root --NotebookApp.token=''`
+
+ホストのブラウザで
+
+`localhost:8888`
+
+にアクセスすることでjupyter notebook上で実行できます。
+
+
+# 以下オリジナルのREADME
+
 #[Programming Bitcoin](https://learning.oreilly.com/library/view/programming-bitcoin/9781492031482/)
 
 ###BY[ JIMMY SONG](https://github.com/jimmysong)

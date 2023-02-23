@@ -12,7 +12,7 @@ class FieldElement:
         self.num = num  # <2>
         self.prime = prime
 
-    def __repr__(self):
+    def __repr__(self): # __repr__は__str__と同じく、printやインタラクティブモードで表示する文字列を決める特殊メソッド
         return 'FieldElement_{}({})'.format(self.prime, self.num)
 
     def __eq__(self, other):
@@ -23,7 +23,8 @@ class FieldElement:
 
     def __ne__(self, other):
         # this should be the inverse of the == operator
-        raise NotImplementedError
+        # raise NotImplementedError
+        return not self == other
 
     # tag::source2[]
     def __add__(self, other):
@@ -39,7 +40,10 @@ class FieldElement:
         # self.num and other.num are the actual values
         # self.prime is what we need to mod against
         # We return an element of the same class
-        raise NotImplementedError
+        # raise NotImplementedError
+        num = (self.num - other.num) % self.prime
+        return self.__class__(num, self.prime) # 返り値は単なる数値ではなく、有限体の要素として返す
+        
 
     def __mul__(self, other):
         if self.prime != other.prime:
@@ -47,7 +51,9 @@ class FieldElement:
         # self.num and other.num are the actual values
         # self.prime is what we need to mod against
         # We return an element of the same class
-        raise NotImplementedError
+        # raise NotImplementedError
+        num = (self.num * other.num) % self.prime
+        return self.__class__(num, self.prime)
 
     # tag::source3[]
     def __pow__(self, exponent):
@@ -64,7 +70,9 @@ class FieldElement:
         # this means:
         # 1/n == pow(n, p-2, p)
         # We return an element of the same class
-        raise NotImplementedError
+        # raise NotImplementedError
+        num = self.num*pow(other.num, self.prime-2, self.prime) % self.prime
+        return self.__class__(num, self.prime)
 
 
 class FieldElementTest(TestCase):
