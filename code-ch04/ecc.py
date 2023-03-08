@@ -561,6 +561,12 @@ class Signature:
         # remove all null bytes at the beginning
         rbin = rbin.lstrip(b'\x00')
         # if rbin has a high bit, add a \x00
+        # 0x80は先頭バイトの7ビット目（MSB）で、1が入っていれば負の数を意味する。
+        # 0x80の2進数表記は10000000
+        #  MSB         6      5      4      3      2      1      0
+        # ----------------------------------------------------------
+        # |  1  |  b6   |  b5   |  b4   |  b3   |  b2   |  b1   |  b0   |
+        # ----------------------------------------------------------
         if rbin[0] & 0x80:
             rbin = b'\x00' + rbin
         result = bytes([2, len(rbin)]) + rbin  # <1>
